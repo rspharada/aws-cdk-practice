@@ -1,8 +1,9 @@
 {
   "Resources": {
-    "helloworldbucket2022031900000E2E6539": {
+    "S3Bucket07682993": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
+        "BucketName": "cdk-create-s3-bucket-202203",
         "VersioningConfiguration": {
           "Status": "Enabled"
         }
@@ -10,7 +11,7 @@
       "UpdateReplacePolicy": "Retain",
       "DeletionPolicy": "Retain",
       "Metadata": {
-        "aws:cdk:path": "HelloCdkStack/hello-world-bucket-202203190000/Resource"
+        "aws:cdk:path": "HelloCdkStack/S3Bucket/Resource"
       }
     },
     "CDKMetadata": {

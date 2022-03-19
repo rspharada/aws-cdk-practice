@@ -27,6 +27,9 @@
     "@aws-cdk/core:target-partitions": [
       "aws",
       "aws-cn"
-    ]
+    ],
+    "s3": {
+      "bucketName": "cdk-create-s3-bucket-202203"
+    }
   }
 }

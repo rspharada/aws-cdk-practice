@@ -23,7 +23,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/3dee1530b30c2e0ac1d847681721a65102dff22755ecb1959a5b2a6a742bcf1f.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/46551ba56b9d06aaba52c554869e05ec825becdab59f9186887d1544be08944e.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -39,10 +39,10 @@
         "HelloCdkStack.assets"
       ],
       "metadata": {
-        "/HelloCdkStack/hello-world-bucket-202203190000/Resource": [
+        "/HelloCdkStack/S3Bucket/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "helloworldbucket2022031900000E2E6539"
+            "data": "S3Bucket07682993"
           }
         ],
         "/HelloCdkStack/CDKMetadata/Default": [

@@ -16,16 +16,17 @@
         "id": "HelloCdkStack",
         "path": "HelloCdkStack",
         "children": {
-          "hello-world-bucket-202203190000": {
-            "id": "hello-world-bucket-202203190000",
-            "path": "HelloCdkStack/hello-world-bucket-202203190000",
+          "S3Bucket": {
+            "id": "S3Bucket",
+            "path": "HelloCdkStack/S3Bucket",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "HelloCdkStack/hello-world-bucket-202203190000/Resource",
+                "path": "HelloCdkStack/S3Bucket/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
                   "aws:cdk:cloudformation:props": {
+                    "bucketName": "cdk-create-s3-bucket-202203",
                     "versioningConfiguration": {
                       "status": "Enabled"
                     }
