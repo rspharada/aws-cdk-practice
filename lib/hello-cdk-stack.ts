@@ -8,7 +8,9 @@ export class HelloCdkStack extends Stack {
 		super(scope, id, props)
 		// AWS S3にバケット「hello-world-bucket-202203190000」を追加する
 		// バケットのバージョニングを有効に設定
-		new s3.Bucket(this, 'hello-world-bucket-202203190000', {
+		const bucket: string =
+			process.env.S3_BUCKET_NAME !== undefined ? process.env.S3_BUCKET_NAME : ''
+		new s3.Bucket(this, bucket, {
 			versioned: true,
 		})
 	}

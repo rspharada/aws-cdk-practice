@@ -2,6 +2,7 @@
 import 'source-map-support/register'
 import * as cdk from 'aws-cdk-lib'
 import { HelloCdkStack } from '../lib/hello-cdk-stack'
+import 'dotenv/config'
 
 const app = new cdk.App()
 new HelloCdkStack(app, 'HelloCdkStack', {
