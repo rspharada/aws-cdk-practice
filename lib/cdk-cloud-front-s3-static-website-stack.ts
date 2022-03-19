@@ -19,9 +19,8 @@ export class CdkCloudFrontS3StaticWebSiteStack extends Stack {
 			bucketName: bucketName,
 			// Bucketへの直接アクセス禁止する。
 			accessControl: s3.BucketAccessControl.PRIVATE,
-			// S3バケットキーを介してKMS-SSE暗号化を有効にします。
-			encryption: s3.BucketEncryption.KMS,
-			bucketKeyEnabled: true,
+			// SES-3暗号化を有効にします。
+			encryption: s3.BucketEncryption.S3_MANAGED,
 			// バブリックアクセスをブロックする。
 			blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
 			// バージョニングを有効にする。

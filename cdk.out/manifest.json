@@ -23,7 +23,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/e31d874287bdcb9b4334cdbac084d111532b0bea1f77f08bbbb19bf32e25bc33.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/b0b5824cb4f7f5b073b7057200454ba90410b8b363c93b03a0ca1afe51f3dc3a.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -39,12 +39,6 @@
         "CdkCloudFrontS3StaticWebSiteStack.assets"
       ],
       "metadata": {
-        "/CdkCloudFrontS3StaticWebSiteStack/S3Bucket/Key/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "S3BucketKey288B5FB4"
-          }
-        ],
         "/CdkCloudFrontS3StaticWebSiteStack/S3Bucket/Resource": [
           {
             "type": "aws:cdk:logicalId",

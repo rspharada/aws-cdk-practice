@@ -1,50 +1,5 @@
 {
   "Resources": {
-    "S3BucketKey288B5FB4": {
-      "Type": "AWS::KMS::Key",
-      "Properties": {
-        "KeyPolicy": {
-          "Statement": [
-            {
-              "Action": "kms:*",
-              "Effect": "Allow",
-              "Principal": {
-                "AWS": {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition"
-                      },
-                      ":iam::",
-                      {
-                        "Ref": "AWS::AccountId"
-                      },
-                      ":root"
-                    ]
-                  ]
-                }
-              },
-              "Resource": "*"
-            }
-          ],
-          "Version": "2012-10-17"
-        },
-        "Description": "Created by CdkCloudFrontS3StaticWebSiteStack/S3Bucket",
-        "Tags": [
-          {
-            "Key": "aws-cdk:cr-owned:3a1cdf2a",
-            "Value": "true"
-          }
-        ]
-      },
-      "UpdateReplacePolicy": "Retain",
-      "DeletionPolicy": "Retain",
-      "Metadata": {
-        "aws:cdk:path": "CdkCloudFrontS3StaticWebSiteStack/S3Bucket/Key/Resource"
-      }
-    },
     "S3Bucket07682993": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
@@ -52,15 +7,8 @@
         "BucketEncryption": {
           "ServerSideEncryptionConfiguration": [
             {
-              "BucketKeyEnabled": true,
               "ServerSideEncryptionByDefault": {
-                "KMSMasterKeyID": {
-                  "Fn::GetAtt": [
-                    "S3BucketKey288B5FB4",
-                    "Arn"
-                  ]
-                },
-                "SSEAlgorithm": "aws:kms"
+                "SSEAlgorithm": "AES256"
               }
             }
           ]
@@ -394,22 +342,6 @@
             },
             {
               "Action": [
-                "kms:Decrypt",
-                "kms:DescribeKey",
-                "kms:Encrypt",
-                "kms:ReEncrypt*",
-                "kms:GenerateDataKey*"
-              ],
-              "Effect": "Allow",
-              "Resource": {
-                "Fn::GetAtt": [
-                  "S3BucketKey288B5FB4",
-                  "Arn"
-                ]
-              }
-            },
-            {
-              "Action": [
                 "cloudfront:GetInvalidation",
                 "cloudfront:CreateInvalidation"
               ],
@@ -468,7 +400,7 @@
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/21Qy2oDMQz8ltwdtUmgPSdbAqWFlgTa4+K1laCs1y6W3RDM/nu967wOPc1oPNLImsPsGR4n8shTpdupoQbSNkjViizViReQVlG1GES1s2dW4NMZUqebfK5LsZKMvWg7hvSGoylDL5RxUe+8swHSh6c92aVSyPyq0QYKo7EaPOvB87/j+vyNzQtx8NTEQM4Ovfd1L3hRJ40/xp263Axls5erICQzBoblAL0wsmu0hJTHvMsT+i/0PIzdkt0bDM6uo1Vj0JVk64X3gmQHaeMMDvKItwsV1l9CajME1PnCyhAsj1wZGjPFuEu+f/73XlSRg+s2yC56Vcbe8cpZTSXaOo1w4Iff2RPMFjCfHJho6mO+WIewKfgHbXykXOoBAAA="
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/21Qy2oDMQz8ltwdtUmgPScbAoVCSwLtcfHayqLEaxfL2xDM/nvtdV6HnjQajzTyzGH2Cs8TeeKp0sepoQbiLkh1FImqIy8grnp1xCCqvb2gUj6dIXW+05e+NCvJOAhlXK/33tkA8cNTS3apFDK/abSBwjhcZc0ma/5X3J6/sVkTB09NH8jZPPvYD4IXddT4Y9y5S8NQDlnfCCGZMTAscxmEkV2jJcS05l2e0X+h57x2R7Y1GJzd9FaNRjeQpFc8CJIdxK0zmOmx3gMpaLia1CYb1ClQZQiWJ64MjZ5ivCXFnf7diqrn4Lotsuu9KmsfcOWspmJtnUY48NPv7AVmC5hPDkw09X1KrEPYlvoHsrNusdkBAAA="
       },
       "Metadata": {
         "aws:cdk:path": "CdkCloudFrontS3StaticWebSiteStack/CDKMetadata/Default"
