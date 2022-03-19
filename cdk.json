@@ -1,5 +1,5 @@
 {
-  "app": "npx ts-node --prefer-ts-exts bin/hello-cdk.ts",
+  "app": "npx ts-node --prefer-ts-exts bin/cdk-cloud-front-s3-static-website.ts",
   "watch": {
     "include": [
       "**"
@@ -29,7 +29,7 @@
       "aws-cn"
     ],
     "s3": {
-      "bucketName": "cdk-create-s3-bucket-202203"
+      "bucketName": "cdk-cloud-front-s3-static-website"
     }
   }
 }
