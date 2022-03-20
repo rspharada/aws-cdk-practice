@@ -1,5 +1,5 @@
 {
-  "app": "npx ts-node --prefer-ts-exts bin/cdk-cloud-front-s3-static-website.ts",
+  "app": "npx ts-node --prefer-ts-exts bin/create-lambda.ts",
   "watch": {
     "include": [
       "**"
@@ -28,8 +28,17 @@
       "aws",
       "aws-cn"
     ],
-    "s3": {
-      "bucketName": "cdk-cloud-front-s3-static-website"
+    "dev": {
+      "name": "development",
+      "description": "開発環境のLambda"
+    },
+    "stg": {
+      "name": "stg",
+      "description": "検証環境のLambda"
+    },
+    "prd": {
+      "name": "prd",
+      "description": "本番環境のLambda"
     }
   }
 }

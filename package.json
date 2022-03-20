@@ -1,8 +1,8 @@
 {
-  "name": "cdk-cloud-front-s3-static-website",
+  "name": "create-lambda",
   "version": "0.1.0",
   "bin": {
-    "cdk-cloud-front-s3-static-website": "bin/cdk-cloud-front-s3-static-website.js"
+    "create-lambda": "bin/create-lambda.js"
   },
   "scripts": {
     "build": "tsc",

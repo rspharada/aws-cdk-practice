@@ -7,27 +7,27 @@
         "file": "tree.json"
       }
     },
-    "CdkCloudFrontS3StaticWebSiteStack.assets": {
+    "CreateLambdaStack.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
-        "file": "CdkCloudFrontS3StaticWebSiteStack.assets.json",
+        "file": "CreateLambdaStack.assets.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
       }
     },
-    "CdkCloudFrontS3StaticWebSiteStack": {
+    "CreateLambdaStack": {
       "type": "aws:cloudformation:stack",
       "environment": "aws://unknown-account/unknown-region",
       "properties": {
-        "templateFile": "CdkCloudFrontS3StaticWebSiteStack.template.json",
+        "templateFile": "CreateLambdaStack.template.json",
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/b0b5824cb4f7f5b073b7057200454ba90410b8b363c93b03a0ca1afe51f3dc3a.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/0b4fee6763ee422246c3d245ff03f69a8aec76b7ed84ea7af3fbe940422bb690.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
-          "CdkCloudFrontS3StaticWebSiteStack.assets"
+          "CreateLambdaStack.assets"
         ],
         "lookupRole": {
           "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
@@ -36,89 +36,47 @@
         }
       },
       "dependencies": [
-        "CdkCloudFrontS3StaticWebSiteStack.assets"
+        "CreateLambdaStack.assets"
       ],
       "metadata": {
-        "/CdkCloudFrontS3StaticWebSiteStack/S3Bucket/Resource": [
+        "/CreateLambdaStack/LambdaFunction/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "S3Bucket07682993"
+            "data": "LambdaFunctionServiceRoleC555A460"
           }
         ],
-        "/CdkCloudFrontS3StaticWebSiteStack/S3Bucket/Policy/Resource": [
+        "/CreateLambdaStack/LambdaFunction/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "S3BucketPolicyF560589A"
+            "data": "LambdaFunctionBF21E41F"
           }
         ],
-        "/CdkCloudFrontS3StaticWebSiteStack/WebsiteIdentity/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "WebsiteIdentity40A20BC9"
-          }
-        ],
-        "/CdkCloudFrontS3StaticWebSiteStack/WebsiteDistribution/CFDistribution": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "WebsiteDistributionCFDistribution70408E7F"
-          }
-        ],
-        "/CdkCloudFrontS3StaticWebSiteStack/WebsiteDeploy/AwsCliLayer/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "WebsiteDeployAwsCliLayer5BC16F29"
-          }
-        ],
-        "/CdkCloudFrontS3StaticWebSiteStack/WebsiteDeploy/CustomResource/Default": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "WebsiteDeployCustomResource76CF21F1"
-          }
-        ],
-        "/CdkCloudFrontS3StaticWebSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265"
-          }
-        ],
-        "/CdkCloudFrontS3StaticWebSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF"
-          }
-        ],
-        "/CdkCloudFrontS3StaticWebSiteStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536"
-          }
-        ],
-        "/CdkCloudFrontS3StaticWebSiteStack/CDKMetadata/Default": [
+        "/CreateLambdaStack/CDKMetadata/Default": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CDKMetadata"
           }
         ],
-        "/CdkCloudFrontS3StaticWebSiteStack/CDKMetadata/Condition": [
+        "/CreateLambdaStack/CDKMetadata/Condition": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CDKMetadataAvailable"
           }
         ],
-        "/CdkCloudFrontS3StaticWebSiteStack/BootstrapVersion": [
+        "/CreateLambdaStack/BootstrapVersion": [
           {
             "type": "aws:cdk:logicalId",
             "data": "BootstrapVersion"
           }
         ],
-        "/CdkCloudFrontS3StaticWebSiteStack/CheckBootstrapVersion": [
+        "/CreateLambdaStack/CheckBootstrapVersion": [
           {
             "type": "aws:cdk:logicalId",
             "data": "CheckBootstrapVersion"
           }
         ]
       },
-      "displayName": "CdkCloudFrontS3StaticWebSiteStack"
+      "displayName": "CreateLambdaStack"
     }
   }
 }
