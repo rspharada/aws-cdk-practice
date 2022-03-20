@@ -6,27 +6,18 @@ import {
 	aws_iam as iam,
 	aws_cloudfront as cloudfront,
 	aws_s3_deployment as s3Deployment,
-	Fn,
+	aws_lambda as lambda,
+	Duration,
 } from 'aws-cdk-lib'
-import { Version } from 'aws-cdk-lib/aws-lambda'
+import { join } from 'path'
 import { Construct } from 'constructs'
 import { StageContext } from './interface'
 
 export class CdkCloudFrontS3StaticWebSiteStack extends Stack {
 	constructor(scope: Construct, id: string, props?: StackProps) {
 		super(scope, id, props)
-
-		// 0. Lambda@EdgeのARN:Versionをインポートする。
 		const env: string = this.node.tryGetContext('env')
 		const context: StageContext = this.node.tryGetContext(env)
-		const websiteBasicAuthFunctionVersion = Fn.importValue(
-			'websiteBasicAuthFunctionVersion',
-		)
-		const edgeViewerRequest = Version.fromVersionArn(
-			this,
-			'EdgeViewerRequest',
-			`${websiteBasicAuthFunctionVersion}:${context.edgeVersion}`,
-		)
 
 		// 1. OriginとなるS3 Bucket作成する。
 		const bucketName: string = this.node
@@ -72,6 +63,22 @@ export class CdkCloudFrontS3StaticWebSiteStack extends Stack {
 		// 4. Bucket PolicyをS3 Bucketに適用する。
 		websiteBucket.addToResourcePolicy(webSiteBucketPolicyStatement)
 
+		// 5. Lambda@Edge関数を作成する
+		// https://docs.aws.amazon.com/cdk/api/v1/docs/aws-cloudfront-readme.html#lambdaedge
+		const websiteBasicAuthFunction = new cloudfront.experimental.EdgeFunction(
+			this,
+			'websiteBasicAuthFunction',
+			{
+				functionName: context.name,
+				description: `${context.description}`,
+				handler: 'index.handler',
+				runtime: lambda.Runtime.NODEJS_14_X,
+				code: lambda.Code.fromAsset(
+					join(__dirname, `../src/lambdaEdge/${env}`),
+				),
+			},
+		)
+
 		// 5. CloudFront Distributionを作成
 		const websiteDistribution = new cloudfront.CloudFrontWebDistribution(
 			this,
@@ -111,7 +118,7 @@ export class CdkCloudFrontS3StaticWebSiteStack extends Stack {
 								lambdaFunctionAssociations: [
 									{
 										eventType: cloudfront.LambdaEdgeEventType.VIEWER_REQUEST,
-										lambdaFunction: edgeViewerRequest,
+										lambdaFunction: websiteBasicAuthFunction.currentVersion,
 										includeBody: false,
 									},
 								],

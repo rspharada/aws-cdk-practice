@@ -2,20 +2,10 @@
 import 'source-map-support/register'
 import * as cdk from 'aws-cdk-lib'
 import { CdkCloudFrontS3StaticWebSiteStack } from '../lib/cdk-cloud-front-s3-static-website-stack'
-import { CdkLambdaEdgeStack } from '../lib/cdk-lambda-edge-stack'
 import 'dotenv/config'
 
 const app = new cdk.App()
-
-// 参照される側のスタック
-const cdkLambdaEdgeStack = new CdkLambdaEdgeStack(app, 'CdkLambdaEdgeStack', {
-	env: {
-		region: 'us-east-1',
-	},
-})
-
-// 参照する側のスタック
-const cdkCloudFrontS3StaticWebSiteStack = new CdkCloudFrontS3StaticWebSiteStack(
+new CdkCloudFrontS3StaticWebSiteStack(
 	app,
 	'CdkCloudFrontS3StaticWebSiteStack',
 	{
@@ -29,11 +19,6 @@ const cdkCloudFrontS3StaticWebSiteStack = new CdkCloudFrontS3StaticWebSiteStack(
 		 * want to deploy the stack to. */
 		// env: { account: '123456789012', region: 'us-east-1' },
 		/* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
-		env: {
-			region: 'ap-northeast-1',
-		},
+		env: { region: 'ap-northeast-1' },
 	},
 )
-
-// 両スタックの依存関係を明示的に定義する。
-cdkCloudFrontS3StaticWebSiteStack.addDependency(cdkLambdaEdgeStack)

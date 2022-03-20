@@ -93,6 +93,111 @@
         "aws:cdk:path": "CdkCloudFrontS3StaticWebSiteStack/WebsiteIdentity/Resource"
       }
     },
+    "websiteBasicAuthFunctionArnReader47A59D36": {
+      "Type": "Custom::CrossRegionStringParameterReader",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "CustomCrossRegionStringParameterReaderCustomResourceProviderHandler65B5F33A",
+            "Arn"
+          ]
+        },
+        "Region": "us-east-1",
+        "ParameterName": "/cdk/EdgeFunctionArn/ap-northeast-1/CdkCloudFrontS3StaticWebSiteStack/websiteBasicAuthFunction",
+        "RefreshToken": "websiteBasicAuthFunctionCurrentVersion91A071C32ee28f181661bf282ce910fa245ae709"
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "CdkCloudFrontS3StaticWebSiteStack/websiteBasicAuthFunction/ArnReader/Default"
+      }
+    },
+    "CustomCrossRegionStringParameterReaderCustomResourceProviderRole71CD6825": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ]
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+          }
+        ],
+        "Policies": [
+          {
+            "PolicyName": "Inline",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":ssm:us-east-1:",
+                        {
+                          "Ref": "AWS::AccountId"
+                        },
+                        ":parameter/cdk/EdgeFunctionArn/*"
+                      ]
+                    ]
+                  },
+                  "Action": [
+                    "ssm:GetParameter"
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "CdkCloudFrontS3StaticWebSiteStack/Custom::CrossRegionStringParameterReaderCustomResourceProvider/Role"
+      }
+    },
+    "CustomCrossRegionStringParameterReaderCustomResourceProviderHandler65B5F33A": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-ap-northeast-1"
+          },
+          "S3Key": "c4ee401ae2c5a889b08c0d9e6a63b6b9b66a9b45f58a70f30da94d39072610ff.zip"
+        },
+        "Timeout": 900,
+        "MemorySize": 128,
+        "Handler": "__entrypoint__.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "CustomCrossRegionStringParameterReaderCustomResourceProviderRole71CD6825",
+            "Arn"
+          ]
+        },
+        "Runtime": "nodejs12.x"
+      },
+      "DependsOn": [
+        "CustomCrossRegionStringParameterReaderCustomResourceProviderRole71CD6825"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "CdkCloudFrontS3StaticWebSiteStack/Custom::CrossRegionStringParameterReaderCustomResourceProvider/Handler",
+        "aws:asset:path": "asset.c4ee401ae2c5a889b08c0d9e6a63b6b9b66a9b45f58a70f30da94d39072610ff",
+        "aws:asset:property": "Code"
+      }
+    },
     "WebsiteDistributionCFDistribution70408E7F": {
       "Type": "AWS::CloudFront::Distribution",
       "Properties": {
@@ -133,14 +238,9 @@
                 "EventType": "viewer-request",
                 "IncludeBody": false,
                 "LambdaFunctionARN": {
-                  "Fn::Join": [
-                    "",
-                    [
-                      {
-                        "Fn::ImportValue": "websiteBasicAuthFunctionVersion"
-                      },
-                      ":1"
-                    ]
+                  "Fn::GetAtt": [
+                    "websiteBasicAuthFunctionArnReader47A59D36",
+                    "FunctionArn"
                   ]
                 }
               }
@@ -417,7 +517,7 @@
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/21RXWsCMRD8Lb7HbVVon/VEEAptFdrHI5dbZTWXlGxSkXD/vcnFjxb6tLOTyWZ2MoXJMzyO5InHqj2ONTUQt16qo0hUHbXsmlZCXAWjPFmzkIziPUhNO8L2D1vtzIs8o/tAx4kTWzJ7jd6aq0rcQJJecS94BnER1BF95i+olDerSZ3v9KUvTX60F0rb0O6cNR7iq6M9mblSyLxu0Xjyw+Uqa1ZZ87/idvyJzZLYO2rC1efvPnutY4tf2p67dBmKkeWNEJIZPcM8l16Q7CBurB6yGep9oYL6XpSEa52jq1PmShPMT1xpGtIUw6z0I8n3XlSBve02yDY4VcZecC+MbREO/PA9eYLJDKajAxONXUhLdgibUn8AkwAmuu8BAAA="
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/21RXWvDMAz8LXt3tbWF7blNVxgMVlrYHoNjK0GtYxfLbldM/vvyUZIN9nS600kc0gLmL/D0IK88U/o0M1RAOgSpTqKV8sRLSOuoThhEVtp7NcDOGVK3Sb7zgawlYyOUcVGX3tkA6cNTRXalFDK/abSBQj+cdZ5t5/nXgd9n9FS3TBp41RVuo1WBnBXT4BcWG+LgqYhDp7S/eSN4mSeNZ+Nu3SIYIm5GQUhmDAyrDhphZF1oCald8y5v6D/Rc7f2QLYyGJwdI0xZylFsBMka0t4Z7OQep1MNVdOILHJw9R7ZRa8G51j/ae28u5BGL/p07WvaG1X3jLnp8uXtp5QhWF05M9RHboR1GuHIj5f5M8yXsHg4MtHMx/aqNcJ+wB+ga/sz/QEAAA=="
       },
       "Metadata": {
         "aws:cdk:path": "CdkCloudFrontS3StaticWebSiteStack/CDKMetadata/Default"
