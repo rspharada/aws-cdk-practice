@@ -36,7 +36,7 @@ export class CdkCloudFrontS3StaticWebSiteStack extends Stack {
 			this,
 			'WebsiteIdentity',
 			{
-				comment: `website-identity`,
+				comment: 'website-identity',
 			},
 		)
 		// 3. Origin Access Identityからのアクセスのみを許可するBucket Policyを作成する。
@@ -59,7 +59,7 @@ export class CdkCloudFrontS3StaticWebSiteStack extends Stack {
 			this,
 			'WebsiteDistribution',
 			{
-				comment: `website-distribution`,
+				comment: 'website-distribution',
 				errorConfigurations: [
 					{
 						errorCachingMinTtl: 300,
