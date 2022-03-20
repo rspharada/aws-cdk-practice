@@ -7,7 +7,6 @@ import {
 	aws_cloudfront as cloudfront,
 	aws_s3_deployment as s3Deployment,
 	aws_lambda as lambda,
-	Duration,
 } from 'aws-cdk-lib'
 import { join } from 'path'
 import { Construct } from 'constructs'
