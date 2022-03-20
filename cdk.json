@@ -29,7 +29,22 @@
       "aws-cn"
     ],
     "s3": {
-      "bucketName": "cdk-cloud-front-s3-static-website"
+      "bucketName": "cdk-#ENV#-cloud-front-s3-static-website"
+    },
+    "dev": {
+      "name": "basic-authentication-dev",
+      "description": "開発環境用のBasic認証",
+      "edgeVersion": 1
+    },
+    "stg": {
+      "name": "basic-authentication-stg",
+      "description": "検証環境用のBasic認証",
+      "edgeVersion": 1
+    },
+    "prd": {
+      "name": "basic-authentication-prd",
+      "description": "本番環境用のBasic認証",
+      "edgeVersion": 1
     }
   }
 }

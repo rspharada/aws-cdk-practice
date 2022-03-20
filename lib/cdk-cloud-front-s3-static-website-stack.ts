@@ -6,14 +6,32 @@ import {
 	aws_iam as iam,
 	aws_cloudfront as cloudfront,
 	aws_s3_deployment as s3Deployment,
+	Fn,
 } from 'aws-cdk-lib'
+import { Version } from 'aws-cdk-lib/aws-lambda'
 import { Construct } from 'constructs'
+import { StageContext } from './interface'
 
 export class CdkCloudFrontS3StaticWebSiteStack extends Stack {
 	constructor(scope: Construct, id: string, props?: StackProps) {
 		super(scope, id, props)
+
+		// 0. Lambda@EdgeのARN:Versionをインポートする。
+		const env: string = this.node.tryGetContext('env')
+		const context: StageContext = this.node.tryGetContext(env)
+		const websiteBasicAuthFunctionVersion = Fn.importValue(
+			'websiteBasicAuthFunctionVersion',
+		)
+		const edgeViewerRequest = Version.fromVersionArn(
+			this,
+			'EdgeViewerRequest',
+			`${websiteBasicAuthFunctionVersion}:${context.edgeVersion}`,
+		)
+
 		// 1. OriginとなるS3 Bucket作成する。
-		const bucketName: string = this.node.tryGetContext('s3').bucketName
+		const bucketName: string = this.node
+			.tryGetContext('s3')
+			.bucketName.replace('#ENV#', env)
 		const websiteBucket = new s3.Bucket(this, 'S3Bucket', {
 			// s3バケット名を設定する。
 			bucketName: bucketName,
@@ -89,6 +107,14 @@ export class CdkCloudFrontS3StaticWebSiteStack extends Stack {
 								isDefaultBehavior: true,
 								viewerProtocolPolicy:
 									cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+								// 関数の関連付け
+								lambdaFunctionAssociations: [
+									{
+										eventType: cloudfront.LambdaEdgeEventType.VIEWER_REQUEST,
+										lambdaFunction: edgeViewerRequest,
+										includeBody: false,
+									},
+								],
 							},
 						],
 					},
@@ -100,7 +126,7 @@ export class CdkCloudFrontS3StaticWebSiteStack extends Stack {
 
 		// S3に静的ファイルをアップロードする。
 		new s3Deployment.BucketDeployment(this, 'WebsiteDeploy', {
-			sources: [s3Deployment.Source.asset('./web/build')],
+			sources: [s3Deployment.Source.asset('./src/web/build')],
 			destinationBucket: websiteBucket,
 			distribution: websiteDistribution,
 			distributionPaths: ['/*'],

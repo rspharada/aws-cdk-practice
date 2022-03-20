@@ -12,10 +12,220 @@
           "version": "10.0.91"
         }
       },
+      "CdkLambdaEdgeStack": {
+        "id": "CdkLambdaEdgeStack",
+        "path": "CdkLambdaEdgeStack",
+        "children": {
+          "websiteBasicAuthFunction": {
+            "id": "websiteBasicAuthFunction",
+            "path": "CdkLambdaEdgeStack/websiteBasicAuthFunction",
+            "children": {
+              "Fn": {
+                "id": "Fn",
+                "path": "CdkLambdaEdgeStack/websiteBasicAuthFunction/Fn",
+                "children": {
+                  "ServiceRole": {
+                    "id": "ServiceRole",
+                    "path": "CdkLambdaEdgeStack/websiteBasicAuthFunction/Fn/ServiceRole",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "CdkLambdaEdgeStack/websiteBasicAuthFunction/Fn/ServiceRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "lambda.amazonaws.com"
+                                  }
+                                },
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "edgelambda.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "managedPolicyArns": [
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                  ]
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                          "version": "2.17.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Role",
+                      "version": "2.17.0"
+                    }
+                  },
+                  "Code": {
+                    "id": "Code",
+                    "path": "CdkLambdaEdgeStack/websiteBasicAuthFunction/Fn/Code",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "CdkLambdaEdgeStack/websiteBasicAuthFunction/Fn/Code/Stage",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.AssetStaging",
+                          "version": "2.17.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "CdkLambdaEdgeStack/websiteBasicAuthFunction/Fn/Code/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                          "version": "2.17.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                      "version": "2.17.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CdkLambdaEdgeStack/websiteBasicAuthFunction/Fn/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                      "aws:cdk:cloudformation:props": {
+                        "code": {
+                          "s3Bucket": {
+                            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-us-east-1"
+                          },
+                          "s3Key": "5dcbf7d8b65e87b0c0c998acf0dcaab68394eed2f1c82408a0d8aa9754796cb2.zip"
+                        },
+                        "role": {
+                          "Fn::GetAtt": [
+                            "websiteBasicAuthFunctionFnServiceRoleD1712FA3",
+                            "Arn"
+                          ]
+                        },
+                        "description": "開発環境用のBasic認証",
+                        "functionName": "basic-authentication-dev",
+                        "handler": "index.handler",
+                        "runtime": "nodejs14.x",
+                        "timeout": 300
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                      "version": "2.17.0"
+                    }
+                  },
+                  "CurrentVersion": {
+                    "id": "CurrentVersion",
+                    "path": "CdkLambdaEdgeStack/websiteBasicAuthFunction/Fn/CurrentVersion",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "CdkLambdaEdgeStack/websiteBasicAuthFunction/Fn/CurrentVersion/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Lambda::Version",
+                          "aws:cdk:cloudformation:props": {
+                            "functionName": {
+                              "Ref": "websiteBasicAuthFunctionFn1AA392E4"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_lambda.CfnVersion",
+                          "version": "2.17.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.Version",
+                      "version": "2.17.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.Function",
+                  "version": "2.17.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_cloudfront.experimental.EdgeFunction",
+              "version": "2.17.0"
+            }
+          },
+          "CdkLambdaEdgeStackArnOutput": {
+            "id": "CdkLambdaEdgeStackArnOutput",
+            "path": "CdkLambdaEdgeStack/CdkLambdaEdgeStackArnOutput",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.17.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "CdkLambdaEdgeStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "CdkLambdaEdgeStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.17.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.0.91"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.17.0"
+        }
+      },
       "CdkCloudFrontS3StaticWebSiteStack": {
         "id": "CdkCloudFrontS3StaticWebSiteStack",
         "path": "CdkCloudFrontS3StaticWebSiteStack",
         "children": {
+          "EdgeViewerRequestFunction": {
+            "id": "EdgeViewerRequestFunction",
+            "path": "CdkCloudFrontS3StaticWebSiteStack/EdgeViewerRequestFunction",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.FunctionBase",
+              "version": "2.17.0"
+            }
+          },
+          "EdgeViewerRequest": {
+            "id": "EdgeViewerRequest",
+            "path": "CdkCloudFrontS3StaticWebSiteStack/EdgeViewerRequest",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda.QualifiedFunctionBase",
+              "version": "2.17.0"
+            }
+          },
           "S3Bucket": {
             "id": "S3Bucket",
             "path": "CdkCloudFrontS3StaticWebSiteStack/S3Bucket",
@@ -36,7 +246,7 @@
                         }
                       ]
                     },
-                    "bucketName": "cdk-cloud-front-s3-static-website",
+                    "bucketName": "cdk-dev-cloud-front-s3-static-website",
                     "publicAccessBlockConfiguration": {
                       "blockPublicAcls": true,
                       "blockPublicPolicy": true,
@@ -226,7 +436,24 @@
                           }
                         },
                         "targetOriginId": "origin1",
-                        "viewerProtocolPolicy": "redirect-to-https"
+                        "viewerProtocolPolicy": "redirect-to-https",
+                        "lambdaFunctionAssociations": [
+                          {
+                            "eventType": "viewer-request",
+                            "lambdaFunctionArn": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  {
+                                    "Fn::ImportValue": "websiteBasicAuthFunctionVersion"
+                                  },
+                                  ":1"
+                                ]
+                              ]
+                            },
+                            "includeBody": false
+                          }
+                        ]
                       },
                       "viewerCertificate": {
                         "cloudFrontDefaultCertificate": true
@@ -287,7 +514,7 @@
                       "aws:cdk:cloudformation:props": {
                         "content": {
                           "s3Bucket": {
-                            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-ap-northeast-1"
                           },
                           "s3Key": "f331b32a8ad8983464106a58e420e7bc7e6341ba2ffb8ac9ad350d7e32845d95.zip"
                         },
@@ -440,7 +667,7 @@
                                           },
                                           ":s3:::",
                                           {
-                                            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                                            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-ap-northeast-1"
                                           }
                                         ]
                                       ]
@@ -455,7 +682,7 @@
                                           },
                                           ":s3:::",
                                           {
-                                            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                                            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-ap-northeast-1"
                                           },
                                           "/*"
                                         ]
@@ -570,7 +797,7 @@
                   "aws:cdk:cloudformation:props": {
                     "code": {
                       "s3Bucket": {
-                        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-ap-northeast-1"
                       },
                       "s3Key": "f98b78092dcdd31f5e6d47489beb5f804d4835ef86a8085d0a2053cb9ae711da.zip"
                     },
@@ -610,14 +837,6 @@
                 "path": "CdkCloudFrontS3StaticWebSiteStack/CDKMetadata/Default",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnResource",
-                  "version": "2.17.0"
-                }
-              },
-              "Condition": {
-                "id": "Condition",
-                "path": "CdkCloudFrontS3StaticWebSiteStack/CDKMetadata/Condition",
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.CfnCondition",
                   "version": "2.17.0"
                 }
               }
