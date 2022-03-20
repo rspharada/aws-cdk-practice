@@ -1,7 +1,8 @@
 /node_modules
 .history
-/src/web
+src/web
 
+cdk.out
 # misc
 .DS_Store
 .env
