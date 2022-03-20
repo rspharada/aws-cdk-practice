@@ -1,5 +1,6 @@
 /node_modules
 .history
+.src/web
 
 # misc
 .DS_Store
